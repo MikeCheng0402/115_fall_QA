@@ -76,7 +76,7 @@
     background: var(--accent-soft); border-radius: 99px; padding: 0 10px; margin-bottom: 6px; }
   .req { color: var(--warn); margin-left: 2px; }
 
-  input[type="text"], select {
+  input[type="text"], select, textarea {
     width: 100%; font: inherit; color: var(--ink); background: var(--bg);
     border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
     outline: none; appearance: none;
@@ -87,7 +87,9 @@
     background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
     background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px;
   }
-  input[type="text"]:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+  .optional { color: var(--muted); font-size: .85rem; font-weight: 400; margin-left: 4px; }
+  input[type="text"]:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
   .options { display: grid; gap: 8px; }
   .opt { position: relative; }
@@ -156,6 +158,12 @@
     </div>
 
     <div id="questions"></div>
+
+    <div class="card" data-field="ask">
+      <span class="q-tag">想問講師</span>
+      <div class="q-head"><span class="q-no">七</span><p class="q-title">有沒有特別想要問講師的，也歡迎提出~<span class="optional">（選填）</span></p></div>
+      <textarea id="ask" name="ask" maxlength="500" placeholder="寫下你的問題"></textarea>
+    </div>
 
     <p class="status" id="status" role="status" aria-live="polite"></p>
     <button type="submit" id="submitBtn">送出</button>
@@ -281,7 +289,8 @@ form.addEventListener("change", () => {
 function collect() {
   const data = {
     name: document.getElementById("name").value.trim(),
-    family: document.getElementById("family").value
+    family: document.getElementById("family").value,
+    ask: document.getElementById("ask").value.trim()
   };
   QUESTIONS.forEach(q => {
     const checked = form.querySelector(`input[name="${q.id}"]:checked`);

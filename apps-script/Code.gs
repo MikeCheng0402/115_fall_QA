@@ -15,7 +15,8 @@ const HEADERS = [
   'Q2 拉回當下（分數）', 'Q2 選項',
   'Q3 心腦一致（分數）', 'Q3 選項',
   'Q4 呼吸頻率（分數）', 'Q4 選項',
-  '專注自評總分（Q1到Q3）'
+  '專注自評總分（Q1到Q3）',
+  '想問講師的問題'
 ];
 
 function getSheet_() {
@@ -30,6 +31,12 @@ function getSheet_() {
   return sheet;
 }
 
+// 以 = + - @ 開頭的文字前面加 '，避免被試算表當成公式執行
+function safe_(v) {
+  const t = String(v || '');
+  return /^[=+\-@]/.test(t) ? "'" + t : t;
+}
+
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
@@ -42,6 +49,7 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents);
 
     const name = String(d.name || '').trim().slice(0, 30);
+    const ask = String(d.ask || '').trim().slice(0, 500);
     const family = String(d.family || '');
     const s = QUESTION_KEYS.map(function (k) { return Number(d[k + '_score']); });
 
@@ -49,11 +57,11 @@ function doPost(e) {
     if (FAMILIES.indexOf(family) === -1) throw new Error('invalid family');
     s.forEach(function (v) { if (!(v >= 1 && v <= 5)) throw new Error('invalid score'); });
 
-    const row = [new Date(), name, family];
+    const row = [new Date(), safe_(name), family];
     QUESTION_KEYS.forEach(function (k, i) {
       row.push(s[i], String(d[k + '_answer'] || ''));
     });
-    row.push(s[0] + s[1] + s[2]);
+    row.push(s[0] + s[1] + s[2], safe_(ask));
 
     getSheet_().appendRow(row);
     return json_({ ok: true });
