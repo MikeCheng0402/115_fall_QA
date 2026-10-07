@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>禪學社 第二堂社課 課前QA</title>
-<meta name="description" content="禪學社第二堂社課課前問卷：日常專注狀態自我覺察">
+<title>領袖社 第二堂社課 課前QA</title>
+<meta name="description" content="領袖社第二堂社課課前問卷：日常專注狀態自我覺察">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -133,7 +133,7 @@
     <svg class="enso" viewBox="0 0 64 64" aria-hidden="true">
       <path d="M50 14 A24 24 0 1 0 54 40" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
     </svg>
-    <p class="kicker">禪學社 · 第二堂社課</p>
+    <p class="kicker">領袖社 · 第二堂社課</p>
     <h1>課前 QA：專注力自我覺察</h1>
     <p class="intro">花一分鐘，誠實觀察自己平常的專注狀態。沒有標準答案，選最接近你「最近一週」實際情況的選項就好。</p>
   </header>
@@ -170,7 +170,7 @@
     <ul class="summary" id="summary"></ul>
   </section>
 
-  <footer>禪學社 Zen Club</footer>
+  <footer>領袖社</footer>
 </div>
 
 <script>
@@ -215,10 +215,18 @@ const QUESTIONS = [
       "幾乎總是，身心合一、內在平靜"
     ],
     low: "心亂不同調", high: "身心合一"
+  },
+  {
+    id: "q4",
+    tag: "呼吸頻率",
+    title: "禪定時，我的呼吸每分鐘大約可以幾下？（一吸一吐算一下）",
+    options: ["20 下以上", "15 到 20 下", "10 到 15 下", "5 到 10 下", "5 下以內"],
+    low: "呼吸較快", high: "呼吸深長",
+    showScore: false
   }
 ];
 
-const CN_NO = ["三", "四", "五"];
+const CN_NO = ["三", "四", "五", "六"];
 const box = document.getElementById("questions");
 QUESTIONS.forEach((q, qi) => {
   const card = document.createElement("div");
@@ -256,6 +264,18 @@ form.addEventListener("input", e => {
 form.addEventListener("change", e => {
   const card = e.target.closest(".card");
   if (card) card.classList.remove("invalid");
+});
+form.addEventListener("input", () => {
+  if (!form.querySelector(".card.invalid") && statusEl.classList.contains("error")) {
+    statusEl.textContent = "";
+    statusEl.className = "status";
+  }
+});
+form.addEventListener("change", () => {
+  if (!form.querySelector(".card.invalid") && statusEl.classList.contains("error")) {
+    statusEl.textContent = "";
+    statusEl.className = "status";
+  }
 });
 
 function collect() {
@@ -325,7 +345,9 @@ function showDone(data) {
   form.style.display = "none";
   const ul = document.getElementById("summary");
   ul.innerHTML = QUESTIONS.map(q =>
-    `<li>${q.tag}：<b>${data[q.id + "_score"]} / 5</b>　${data[q.id + "_answer"]}</li>`
+    q.showScore === false
+      ? `<li>${q.tag}：<b>${data[q.id + "_answer"]}</b></li>`
+      : `<li>${q.tag}：<b>${data[q.id + "_score"]} / 5</b>　${data[q.id + "_answer"]}</li>`
   ).join("");
   document.getElementById("done").classList.add("show");
   window.scrollTo({ top: 0, behavior: "smooth" });
