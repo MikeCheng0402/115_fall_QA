@@ -13,7 +13,7 @@
    - 誰可以存取：**所有人**
 5. 按「部署」，第一次會要求授權，用自己的 Google 帳號同意（若出現「Google 尚未驗證這個應用程式」，點「進階 → 前往（不安全）」即可，這是你自己寫的程式）。
 6. 複製產生的「網頁應用程式網址」（`https://script.google.com/macros/s/.../exec`）。
-7. 用瀏覽器打開這個網址，看到 `{"ok":true,...}` 就代表成功，試算表也會自動多出「回覆」工作表和標題列。
+7. 用瀏覽器打開這個網址，看到 `{"ok":true,...}` 就代表成功，試算表也會自動多出「第二堂課前QA」工作表和標題列。
 
 ## 二、把網址填進網站
 
@@ -26,9 +26,10 @@ const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 ## 三、放上 GitHub Pages
 
 1. 登入 GitHub（MikeCheng0402），右上角「+ → New repository」，名稱例如 `115_fall_QA`，設為 **Public**，建立。
-2. 在 repo 頁面點「Add file → Upload files」，把 `index.html`、`README.md`、`apps-script` 資料夾拖進去，Commit。
+2. 在 repo 頁面點「Add file → Upload files」，把整個 `社課二` 資料夾拖進去，Commit。
 3. 進入 repo 的「Settings → Pages」，Source 選「Deploy from a branch」，Branch 選 `main`、資料夾 `/ (root)`，Save。
-4. 等一兩分鐘，網址會是：`https://mikecheng0402.github.io/115_fall_QA/`
+4. 等一兩分鐘，這堂課的問卷網址是：`https://mikecheng0402.github.io/115_fall_QA/社課二/`
+5. repo 根目錄的 `index.html` 會自動轉到 `社課二/`，所以舊網址 `https://mikecheng0402.github.io/115_fall_QA/` 也能打開這份問卷。
 
 ## 四、表格欄位
 
