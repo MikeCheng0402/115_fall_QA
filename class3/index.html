@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>領袖社 第三堂社課 課前QA</title>
+<meta name="description" content="領袖社第三堂社課課前問卷：付出、典範、領袖特質與禪定練習">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== 設定 ===== */
+  :root {
+    --bg: #f5f1e8;
+    --paper: #fffdf8;
+    --ink: #2b2a26;
+    --muted: #6f6a5f;
+    --line: #e3dccc;
+    --accent: #5b7a5a;      /* 松綠 */
+    --accent-soft: #e6eee3;
+    --warn: #a4483a;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1c1c1a;
+      --paper: #252522;
+      --ink: #ece7dc;
+      --muted: #a39d90;
+      --line: #3a3934;
+      --accent: #8fb08c;
+      --accent-soft: #2f3a2e;
+      --warn: #e08a7c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1c1c1a; --paper: #252522; --ink: #ece7dc; --muted: #a39d90;
+    --line: #3a3934; --accent: #8fb08c; --accent-soft: #2f3a2e; --warn: #e08a7c;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans TC", system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    line-height: 1.7;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 32px 16px 64px; }
+
+  header { text-align: center; margin-bottom: 28px; }
+  .enso {
+    width: 64px; height: 64px; margin: 0 auto 12px; display: block;
+  }
+  .kicker { color: var(--muted); font-size: .9rem; letter-spacing: .2em; margin: 0; }
+  h1 {
+    font-family: "Noto Serif TC", serif; font-weight: 700;
+    font-size: clamp(1.5rem, 5vw, 2rem); margin: 4px 0 8px; letter-spacing: .05em;
+  }
+  .intro { color: var(--muted); margin: 0 auto; max-width: 30em; font-size: .95rem; }
+
+  form { display: grid; gap: 18px; }
+  .card {
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 20px 18px;
+  }
+  .card.invalid { border-color: var(--warn); }
+  .q-head { display: flex; gap: 10px; align-items: baseline; margin-bottom: 12px; }
+  .q-no {
+    flex: none; font-family: "Noto Serif TC", serif; color: var(--accent);
+    font-weight: 700; font-size: 1.05rem;
+  }
+  .q-title { font-weight: 500; margin: 0; font-size: 1.02rem; }
+  .q-tag { display: inline-block; font-size: .75rem; color: var(--accent);
+    background: var(--accent-soft); border-radius: 99px; padding: 0 10px; margin-bottom: 6px; }
+  .req { color: var(--warn); margin-left: 2px; }
+
+  input[type="text"], select, textarea {
+    width: 100%; font: inherit; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+    outline: none; appearance: none;
+  }
+  select {
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                      linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%;
+    background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px;
+  }
+  textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+  .optional { color: var(--muted); font-size: .85rem; font-weight: 400; margin-left: 4px; }
+  input[type="text"]:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  .options { display: grid; gap: 8px; }
+  .opt { position: relative; }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt label {
+    display: flex; align-items: center; gap: 12px; cursor: pointer;
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px;
+    background: var(--bg); transition: border-color .15s, background .15s;
+  }
+  .letter {
+    flex: none; width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid var(--accent); color: var(--accent);
+    display: grid; place-items: center;
+    font-family: "Noto Serif TC", serif; font-size: .9rem; line-height: 1;
+    transition: background .15s, color .15s;
+  }
+  .multi .letter { border-radius: 7px; }
+  .opt input:checked + label .letter { background: var(--accent); color: var(--paper); }
+  .opt-text { font-size: .95rem; line-height: 1.6; }
+  .opt-key { font-weight: 700; color: var(--accent); }
+  .multi-hint { font-size: .8rem; color: var(--muted); margin: -4px 0 10px; }
+  .opt label:hover { border-color: var(--accent); }
+  .opt input:checked + label { border-color: var(--accent); background: var(--accent-soft); }
+  .opt input:focus-visible + label { box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  .err { color: var(--warn); font-size: .85rem; margin: 8px 0 0; display: none; }
+  .card.invalid .err { display: block; }
+
+  button {
+    font: inherit; font-weight: 700; letter-spacing: .2em; cursor: pointer;
+    background: var(--accent); color: var(--paper); border: none;
+    border-radius: 99px; padding: 14px 20px; width: 100%;
+  }
+  button:disabled { opacity: .6; cursor: wait; }
+  .status { text-align: center; font-size: .9rem; min-height: 1.5em; margin: 0; }
+  .status.error { color: var(--warn); }
+
+  .done { display: none; text-align: center; }
+  .done.show { display: block; }
+  .done h2 { font-family: "Noto Serif TC", serif; margin: 8px 0; }
+  .summary { text-align: left; margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .summary li { border-top: 1px solid var(--line); padding-top: 10px; font-size: .92rem; }
+  .summary b { color: var(--accent); font-weight: 500; }
+  footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 32px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="enso" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M50 14 A24 24 0 1 0 54 40" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    <p class="kicker">領袖社 · 第三堂社課</p>
+    <h1>課前 QA：我心中的領袖</h1>
+    <p class="intro">花幾分鐘，聽聽自己內心真實的想法。沒有標準答案，選最貼近你自己的選項就好。</p>
+  </header>
+
+  <form id="qa" novalidate>
+    <div class="card" data-field="name">
+      <div class="q-head"><span class="q-no">一</span><p class="q-title">你的姓名<span class="req">*</span></p></div>
+      <input type="text" id="name" name="name" autocomplete="name" maxlength="30" placeholder="請輸入姓名">
+      <p class="err">請填寫姓名</p>
+    </div>
+
+    <div class="card" data-field="family">
+      <div class="q-head"><span class="q-no">二</span><p class="q-title">你是哪一家的？<span class="req">*</span></p></div>
+      <select id="family" name="family">
+        <option value="" selected disabled>請選擇</option>
+        <option>1家</option><option>2家</option><option>3家</option><option>4家</option>
+        <option>5家</option><option>6家</option><option>7家</option>
+      </select>
+      <p class="err">請選擇家別</p>
+    </div>
+
+    <div id="questions"></div>
+
+    <div class="card" data-field="ask">
+      <span class="q-tag">想問講師</span>
+      <div class="q-head"><span class="q-no">八</span><p class="q-title">有沒有特別想要問講師的，也歡迎提出~<span class="optional">（選填）</span></p></div>
+      <textarea id="ask" name="ask" maxlength="500" placeholder="寫下你的問題"></textarea>
+    </div>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+    <button type="submit" id="submitBtn">送出</button>
+  </form>
+
+  <section class="done card" id="done">
+    <svg class="enso" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M50 14 A24 24 0 1 0 54 40" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    <h2>已收到，謝謝你！</h2>
+    <p class="intro">這是你這次的回答，社課上我們一起分享與討論。</p>
+    <ul class="summary" id="summary"></ul>
+  </section>
+
+  <footer>領袖社</footer>
+</div>
+
+<script>
+/* ============================================================
+ * 1) 部署好 Google Apps Script 之後，把「網頁應用程式網址」貼在這裡
+ * ============================================================ */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7i7uEEsEUl4Cvep9jtp4kjg5PBMWd6Royf1XsuiunucWFsVUkw6GPx-ie6slGVPcO/exec";
+
+/* ============================================================
+ * 2) 本堂課題目：每個選項 = { key: 粗體關鍵字, desc: 說明 }
+ *    multi: true 代表可複選；exclusive: true 的選項和其他選項互斥
+ * ============================================================ */
+const FORM_ID = "class3";
+const QUESTIONS = [
+  {
+    id: "q1",
+    tag: "不求回報",
+    title: "你曾經「不求回報」地幫助過別人嗎？事後的感受是？",
+    options: [
+      { key: "能量滿滿", desc: "內心感到很充實，體會到純粹付出的快樂，會另外找尋調整自己能量的方法～" },
+      { key: "一半一半", desc: "看對象與狀況，有時候會覺得自己的心力被過度消耗了，不太敢再奮不顧身。" },
+      { key: "禮尚往來", desc: "人際關係本來就是一報還一報，互相回饋才算公平。" },
+      { key: "務實至上", desc: "比較少有這種經驗，認為先顧好自己比較切合實際。" }
+    ]
+  },
+  {
+    id: "q2",
+    tag: "典範人物",
+    title: "是否曾有一位啟發你內心、讓你由衷想學習的「精神導師」或「典範人物」呢？（可能是政治宗教領袖，或身邊的同學師長）",
+    options: [
+      { key: "深受啟發", desc: "有，這個人的思想與事蹟，對我的價值觀與生命方向影響深遠。" },
+      { key: "滿心期待", desc: "目前沒有特定的對象，但我滿渴望能找到一位值得學習的精神指標。" },
+      { key: "理性存疑", desc: "不太相信這類被推崇的人，覺得很多人只是表面包裝得很完美，私下可能會有其他面。" },
+      { key: "獨立探索", desc: "覺得不需要，我相信每個人就是自己的導師，習慣透過自我摸索與覺察來成長。" }
+    ]
+  },
+  {
+    id: "q3",
+    tag: "領袖特質",
+    title: "你覺得在你心目中，一個領袖最重要的特質是什麼？",
+    options: [
+      { key: "深謀遠慮", desc: "看得遠、想得深，能在變局中為團隊找到長遠的方向。" },
+      { key: "寬廣胸襟", desc: "能包容不同的人與意見，讓大家安心發揮所長。" },
+      { key: "頂尖專業", desc: "在自己的領域有真本事，用實力讓人信服。" },
+      { key: "個人魅力", desc: "有感染力與親和力，讓人自然而然願意追隨。" }
+    ]
+  },
+  {
+    id: "q4",
+    tag: "世界和平",
+    title: "你對世界和平的看法是什麼？",
+    options: [
+      { key: "盡己所能", desc: "雖然很困難，但我願意從自己做起，盡一份心力。" },
+      { key: "心嚮往之", desc: "心中很嚮往，但面對現實時，無力感比較多。" },
+      { key: "理想口號", desc: "覺得不太現實，世界和平比較像是一句口號。" },
+      { key: "尚未深思", desc: "感覺離自己的生活太遠，還沒有認真想過。" }
+    ]
+  },
+  {
+    id: "q5",
+    tag: "禪定題",
+    title: "上週社課帶專注大腦，實作的時候感覺有遇到哪些困難呢？",
+    multi: true,
+    options: [
+      { key: "難以入門", desc: "沒什麼感覺，還沒辦法往內專注。" },
+      { key: "呼吸困惑", desc: "不知道專注的時候，要不要管呼吸。" },
+      { key: "思緒紛飛", desc: "思緒太多，所以專注起來很吃力。" },
+      { key: "後繼乏力", desc: "有感覺，但做到後面容易分心。" },
+      { key: "腿部不適", desc: "腿很容易痠、麻、痛，影響專注。" },
+      { key: "漸入佳境", desc: "目前覺得做得滿好、滿舒服的，沒什麼問題。", exclusive: true }
+    ]
+  }
+];
+
+const LETTERS = "ABCDEF";
+const CN_NO = ["三", "四", "五", "六", "七"];
+const answerText = (q, i) => `${LETTERS[i]} ${q.options[i].key}`;
+const box = document.getElementById("questions");
+QUESTIONS.forEach((q, qi) => {
+  const type = q.multi ? "checkbox" : "radio";
+  const card = document.createElement("div");
+  card.className = "card" + (q.multi ? " multi" : "");
+  card.dataset.field = q.id;
+  card.setAttribute("role", q.multi ? "group" : "radiogroup");
+  card.setAttribute("aria-labelledby", q.id + "-title");
+  card.innerHTML = `
+    <span class="q-tag">${q.tag}</span>
+    <div class="q-head"><span class="q-no">${CN_NO[qi]}</span>
+      <p class="q-title" id="${q.id}-title">${q.title}<span class="req">*</span></p></div>
+    ${q.multi ? '<p class="multi-hint">可複選</p>' : ""}
+    <div class="options">
+      ${q.options.map((o, i) => `
+        <div class="opt">
+          <input type="${type}" name="${q.id}" id="${q.id}-${i}" value="${i}"${o.exclusive ? " data-exclusive" : ""}>
+          <label for="${q.id}-${i}">
+            <span class="letter" aria-hidden="true">${LETTERS[i]}</span>
+            <span class="opt-text"><span class="opt-key">${o.key}：</span>${o.desc}</span>
+          </label>
+        </div>`).join("")}
+    </div>
+    <p class="err">${q.multi ? "請至少選擇一個選項" : "請選擇一個選項"}</p>`;
+  box.appendChild(card);
+});
+
+// 複選題：選了互斥選項（例如「漸入佳境」）就清掉其他選項，反之亦然
+box.addEventListener("change", e => {
+  const el = e.target;
+  if (el.type !== "checkbox" || !el.checked) return;
+  box.querySelectorAll(`input[name="${el.name}"]`).forEach(other => {
+    if (other === el) return;
+    if (el.hasAttribute("data-exclusive") || other.hasAttribute("data-exclusive")) other.checked = false;
+  });
+});
+
+const form = document.getElementById("qa");
+const statusEl = document.getElementById("status");
+const btn = document.getElementById("submitBtn");
+
+form.addEventListener("input", e => {
+  const card = e.target.closest(".card");
+  if (card) card.classList.remove("invalid");
+});
+form.addEventListener("change", e => {
+  const card = e.target.closest(".card");
+  if (card) card.classList.remove("invalid");
+});
+form.addEventListener("input", () => {
+  if (!form.querySelector(".card.invalid") && statusEl.classList.contains("error")) {
+    statusEl.textContent = "";
+    statusEl.className = "status";
+  }
+});
+form.addEventListener("change", () => {
+  if (!form.querySelector(".card.invalid") && statusEl.classList.contains("error")) {
+    statusEl.textContent = "";
+    statusEl.className = "status";
+  }
+});
+
+function collect() {
+  const data = {
+    form: FORM_ID,
+    name: document.getElementById("name").value.trim(),
+    family: document.getElementById("family").value,
+    ask: document.getElementById("ask").value.trim()
+  };
+  QUESTIONS.forEach(q => {
+    const picked = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(el => answerText(q, Number(el.value)));
+    data[q.id] = q.multi ? picked : (picked[0] || "");
+  });
+  return data;
+}
+
+function validate(data) {
+  let firstBad = null;
+  const mark = (field, ok) => {
+    const card = form.querySelector(`.card[data-field="${field}"]`);
+    card.classList.toggle("invalid", !ok);
+    if (!ok && !firstBad) firstBad = card;
+  };
+  mark("name", !!data.name);
+  mark("family", !!data.family);
+  QUESTIONS.forEach(q => mark(q.id, q.multi ? data[q.id].length > 0 : !!data[q.id]));
+  if (firstBad) firstBad.scrollIntoView({ behavior: "smooth", block: "center" });
+  return !firstBad;
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const data = collect();
+  if (!validate(data)) {
+    statusEl.textContent = "還有題目沒填喔";
+    statusEl.className = "status error";
+    return;
+  }
+  if (SCRIPT_URL.startsWith("PASTE_")) {
+    statusEl.textContent = "網站尚未設定後台網址（SCRIPT_URL），請聯絡幹部。";
+    statusEl.className = "status error";
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = "送出中…";
+  statusEl.textContent = "";
+  statusEl.className = "status";
+  try {
+    // 用 text/plain 送 JSON，避免瀏覽器對 Apps Script 發出 CORS preflight
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(data)
+    });
+    const out = await res.json();
+    if (!out.ok) throw new Error(out.error || "unknown error");
+    showDone(data);
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = "送出失敗，請確認網路後再試一次。";
+    statusEl.className = "status error";
+    btn.disabled = false;
+    btn.textContent = "送出";
+  }
+});
+
+function showDone(data) {
+  form.style.display = "none";
+  const ul = document.getElementById("summary");
+  ul.innerHTML = QUESTIONS.map(q =>
+    `<li>${q.tag}：<b>${q.multi ? data[q.id].join("、") : data[q.id]}</b></li>`
+  ).join("");
+  document.getElementById("done").classList.add("show");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+</body>
+</html>

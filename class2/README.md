@@ -26,10 +26,11 @@ const SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 ## 三、放上 GitHub Pages
 
 1. 登入 GitHub（MikeCheng0402），右上角「+ → New repository」，名稱例如 `115_fall_QA`，設為 **Public**，建立。
-2. 在 repo 頁面點「Add file → Upload files」，把整個 `社課二` 資料夾拖進去，Commit。
+2. 在 repo 頁面點「Add file → Upload files」，把整個 `class2` 資料夾拖進去，Commit。
 3. 進入 repo 的「Settings → Pages」，Source 選「Deploy from a branch」，Branch 選 `main`、資料夾 `/ (root)`，Save。
-4. 等一兩分鐘，這堂課的問卷網址是：`https://mikecheng0402.github.io/115_fall_QA/社課二/`
-5. repo 根目錄的 `index.html` 會自動轉到 `社課二/`，所以舊網址 `https://mikecheng0402.github.io/115_fall_QA/` 也能打開這份問卷。
+4. 等一兩分鐘，這堂課的問卷網址是：`https://mikecheng0402.github.io/115_fall_QA/class2/`
+5. repo 根目錄的 `index.html` 會自動轉到最新一堂課的資料夾（目前是 `class3/`）。
+6. 第三堂起改用 `class3/apps-script/Code.gs` 這份共用後台，它也支援本堂的問卷。
 
 ## 四、表格欄位
 
