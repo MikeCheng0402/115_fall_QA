@@ -154,8 +154,17 @@
       <p class="err">請填寫姓名</p>
     </div>
 
+    <div class="card" data-field="role">
+      <div class="q-head"><span class="q-no">二</span><p class="q-title">你的身分<span class="req">*</span></p></div>
+      <select id="role" name="role">
+        <option value="" selected disabled>請選擇</option>
+        <option>社員</option><option>幹部</option><option>家族長</option>
+      </select>
+      <p class="err">請選擇身分</p>
+    </div>
+
     <div class="card" data-field="family">
-      <div class="q-head"><span class="q-no">二</span><p class="q-title">你是哪一家的？<span class="req">*</span></p></div>
+      <div class="q-head"><span class="q-no">三</span><p class="q-title">你是哪一家的？<span class="req">*</span></p></div>
       <select id="family" name="family">
         <option value="" selected disabled>請選擇</option>
         <option>1家</option><option>2家</option><option>3家</option><option>4家</option>
@@ -168,7 +177,7 @@
 
     <div class="card" data-field="ask">
       <span class="q-tag">想問講師</span>
-      <div class="q-head"><span class="q-no">七</span><p class="q-title">有沒有特別想要問講師的，也歡迎提出~<span class="optional">（選填）</span></p></div>
+      <div class="q-head"><span class="q-no">八</span><p class="q-title">有沒有特別想要問講師的，也歡迎提出~<span class="optional">（選填）</span></p></div>
       <textarea id="ask" name="ask" maxlength="500" placeholder="寫下你的問題"></textarea>
     </div>
 
@@ -248,7 +257,7 @@ const QUESTIONS = [
 ];
 
 const LETTERS = "ABCDEF";
-const CN_NO = ["三", "四", "五", "六"];
+const CN_NO = ["四", "五", "六", "七"];
 const answerText = (q, i) => `${LETTERS[i]} ${q.options[i].key || q.options[i].desc}`;
 const box = document.getElementById("questions");
 QUESTIONS.forEach((q, qi) => {
@@ -316,6 +325,7 @@ function collect() {
   const data = {
     form: FORM_ID,
     name: document.getElementById("name").value.trim(),
+    role: document.getElementById("role").value,
     family: document.getElementById("family").value,
     ask: document.getElementById("ask").value.trim()
   };
@@ -334,6 +344,7 @@ function validate(data) {
     if (!ok && !firstBad) firstBad = card;
   };
   mark("name", !!data.name);
+  mark("role", !!data.role);
   mark("family", !!data.family);
   QUESTIONS.forEach(q => mark(q.id, q.multi ? data[q.id].length > 0 : !!data[q.id]));
   if (firstBad) firstBad.scrollIntoView({ behavior: "smooth", block: "center" });

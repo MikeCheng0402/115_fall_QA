@@ -7,9 +7,11 @@
  * 每堂課的回覆會寫進各自的工作表（第一次收到回覆時自動建立，含標題列）。
  * 網頁送出時會帶 form 欄位（例如 "class3"）；沒有帶的舊網頁一律視為第二堂。
  * 之後新增一堂課：在 FORMS 裡複製一段 class4，改工作表名稱、欄位與 build 即可。
+ * withRole: true 的表單會多收「身分」（社員、幹部、家族長），放在姓名與家別之間。
  */
 
 const FAMILIES = ['1家', '2家', '3家', '4家', '5家', '6家', '7家'];
+const ROLES = ['社員', '幹部', '家族長'];
 
 const FORMS = {
   class2: {
@@ -56,8 +58,9 @@ const FORMS = {
 
   class4: {
     sheet: '第四堂課前QA',
+    withRole: true,
     headers: [
-      '時間戳記', '姓名', '家別',
+      '時間戳記', '姓名', '身分', '家別',
       'Q1 平常會不會主動觀察自己',
       'Q2 感到壓力時的第一反應',
       'Q3 壓力很大時怎麼調整',
@@ -115,8 +118,15 @@ function doPost(e) {
     if (!name) throw new Error('missing name');
     if (FAMILIES.indexOf(family) === -1) throw new Error('invalid family');
 
-    const row = [new Date(), safe_(name), family].concat(f.build(d), [safe_(ask)]);
-    getSheet_(f).appendRow(row);
+    const row = [new Date(), safe_(name)];
+    if (f.withRole) {
+      const role = String(d.role || '');
+      if (ROLES.indexOf(role) === -1) throw new Error('invalid role');
+      row.push(role);
+    }
+    row.push(family);
+    const fullRow = row.concat(f.build(d), [safe_(ask)]);
+    getSheet_(f).appendRow(fullRow);
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err && err.message || err) });
